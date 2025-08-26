@@ -2,8 +2,8 @@
 
 # A script to create or update a Homebrew formula file.
 # It lives in the root of the 'homebrew-scripts' repository and
-# takes the relative path of the script to be published (e.g., 'utility/unlock-pdf.sh')
-# as its single argument.
+# takes the relative path of the script to be published as its single argument.
+# It automatically parses the README.md file for the script's description and dependencies.
 
 # --- Configuration ---
 # The parent directory containing both repositories.
@@ -14,77 +14,142 @@ SCRIPTS_REPO="scripts"
 # The name of your Homebrew tap repository.
 HOMEBREW_TAP_REPO="homebrew-scripts"
 
-# --- Script Logic ---
+# --- Script Functions ---
 
-# Check if a script path was provided as an argument.
-if [ -z "$1" ]; then
-  echo "Usage: $0 <path-to-script-in-repo>"
-  echo "Example: $0 utility/unlock-pdf.sh"
-  exit 1
-fi
+# Parses the script path to get the formula name and the README path.
+# Globals: SCRIPT_PATH, README_PATH
+function parse_script_info() {
+  # The relative path to the script within the 'scripts' repository.
+  SCRIPT_PATH="$1"
 
-# The relative path to the script within the 'scripts' repository.
-SCRIPT_PATH="$1"
+  if [ -z "${SCRIPT_PATH}" ]; then
+    echo "Error: No script path provided."
+    echo "Usage: $0 <path-to-script-in-repo>"
+    echo "Example: $0 utility/unlock-pdf.sh"
+    exit 1
+  fi
 
-# Extract the base name to use for the formula file and command.
-# This version is more robust and handles any file extension.
-# For 'utility/unlock-pdf.sh', this will be 'unlock-pdf'.
-# For 'system/install-dependency', this will be 'install-dependency'.
-FORMULA_NAME=$(basename "${SCRIPT_PATH}")
-FORMULA_NAME=${FORMULA_NAME%.*}
+  # Extract the base name to use for the formula file and command.
+  FORMULA_NAME=$(basename "${SCRIPT_PATH}")
+  FORMULA_NAME=${FORMULA_NAME%.*}
 
-FORMULA_FILE="${FORMULA_NAME}.rb"
-API_URL="https://api.github.com/repos/${GITHUB_USER}/${SCRIPTS_REPO}/releases/latest"
+  # The path to the README file. Assumes the README is in the same directory as the script.
+  README_PATH="${PARENT_DIR}/${SCRIPTS_REPO}/$(dirname "${SCRIPT_PATH}")/README.md"
+}
 
-echo "Fetching latest release information for '${FORMULA_NAME}' from GitHub..."
+# Fetches the latest release info from the GitHub API.
+# Globals: TARBALL_URL, SHA256_CHECKSUM
+function fetch_release_info() {
+  local api_url="https://api.github.com/repos/${GITHUB_USER}/${SCRIPTS_REPO}/releases/latest"
+  echo "Fetching latest release information from GitHub..."
 
-# Fetch the latest release information using the GitHub API.
-RELEASE_INFO=$(curl -s "${API_URL}")
+  local release_info=$(curl -s "${api_url}")
+  if [ $? -ne 0 ]; then
+    echo "Error: Failed to fetch release information. Check your internet connection."
+    exit 1
+  fi
 
-# Check if the curl request was successful.
-if [ $? -ne 0 ]; then
-  echo "Error: Failed to fetch release information. Check your internet connection."
-  exit 1
-fi
+  # Use 'sed' to extract the tarball URL and version from the JSON response.
+  TARBALL_URL=$(echo "${release_info}" | sed -nE 's/.*"tarball_url": "([^"]+)".*/\1/p')
+  VERSION=$(echo "${release_info}" | sed -nE 's/.*"tag_name": "([^"]+)".*/\1/p')
 
-# Extract the tarball URL and version from the JSON response.
-TARBALL_URL=$(echo "${RELEASE_INFO}" | grep -oP '"tarball_url": "\K[^"]+')
-VERSION=$(echo "${RELEASE_INFO}" | grep -oP '"tag_name": "\K[^"]+')
+  if [ -z "${TARBALL_URL}" ] || [ -z "${VERSION}" ]; then
+    echo "Error: Could not find a release for the scripts repository."
+    echo "Please create a release on GitHub first."
+    exit 1
+  fi
 
-if [ -z "${TARBALL_URL}" ] || [ -z "${VERSION}" ]; then
-  echo "Error: Could not find a release for the scripts repository. Please create a release on GitHub first."
-  exit 1
-fi
+  echo "Found latest release: ${VERSION}"
+  echo "Downloading tarball to calculate SHA256 checksum..."
 
-echo "Found latest release: ${VERSION}"
-echo "Downloading tarball to calculate SHA256 checksum..."
+  SHA256_CHECKSUM=$(curl -sSL "${TARBALL_URL}" | shasum -a 256 | awk '{print $1}')
+  if [ -z "${SHA256_CHECKSUM}" ]; then
+    echo "Error: Failed to calculate checksum. Check if the tarball URL is valid."
+    exit 1
+  fi
+  echo "Checksum calculated: ${SHA256_CHECKSUM}"
+}
 
-# Download the tarball and compute the SHA256 checksum.
-SHA256_CHECKSUM=$(curl -sSL "${TARBALL_URL}" | shasum -a 256 | awk '{print $1}')
+# Parses the script's README for its description and dependencies.
+# Globals: DESCRIPTION, DEPENDENCIES
+function parse_readme() {
+  echo "Parsing README.md for description and dependencies..."
 
-if [ -z "${SHA256_CHECKSUM}" ]; then
-  echo "Error: Failed to calculate checksum. Check if the tarball URL is valid."
-  exit 1
-fi
+  if [ ! -f "${README_PATH}" ]; then
+    echo "Error: README.md not found at '${README_PATH}'"
+    exit 1
+  fi
 
-echo "Checksum calculated: ${SHA256_CHECKSUM}"
+  # Use awk to find the description text.
+  DESCRIPTION=$(awk -v script_name="### \`*${FORMULA_NAME}.*\`*" '
+      BEGIN {found_heading=0; description=""}
+      $0 ~ script_name { found_heading=1; next }
+      found_heading && !/^[[:space:]]*$/ && description=="" {
+          description=$0
+          gsub(/^[[:space:]]+|[[:space:]]+$/, "", description)
+      }
+      END { print description }
+  ' "${README_PATH}")
 
-echo "Creating or updating formula file at 'Formula/${FORMULA_FILE}'..."
+  if [ -z "${DESCRIPTION}" ]; then
+    echo "Error: Could not find description for '${FORMULA_NAME}' in README.md."
+    echo "Please ensure there is a markdown heading '### <script-name>' followed by a description."
+    exit 1
+  fi
 
-# The class name is converted from the formula name (e.g., 'unlock-pdf' -> 'UnlockPdf').
-CLASS_NAME=$(echo "${FORMULA_NAME}" | sed -E 's/(^|-)(.)/\U\2/g')
+  # Use awk to find and format dependencies.
+  DEPENDENCIES=$(awk '
+      BEGIN {flag=0; printed=0}
+      /#### Dependencies/ {flag=1; next}
+      /## / {flag=0}
+      flag && /^- / {
+          # Get the word after the hyphen, remove backticks.
+          dep_name = $2
+          gsub(/`/, "", dep_name)
+          # Remove '.sh' extension if present.
+          gsub(/\.sh$/, "", dep_name)
 
-# Generate the complete formula file content.
-cat <<EOF > "${PARENT_DIR}/${HOMEBREW_TAP_REPO}/Formula/${FORMULA_FILE}"
+          # Print the formatted dependency line.
+          printf "  depends_on \"%s\"\n", dep_name
+          printed = 1
+      }
+      END {
+          if (flag && !printed) {
+              exit 1
+          }
+      }
+  ' "${README_PATH}")
+
+  # Check if dependencies were parsed successfully.
+  if [ $? -ne 0 ]; then
+    echo "Error: Could not parse dependencies from README.md. Please ensure the format is correct."
+    exit 1
+  fi
+}
+
+# Generates the Homebrew formula file with all parsed information.
+function generate_formula() {
+  local formula_file="${PARENT_DIR}/${HOMEBREW_TAP_REPO}/Formula/${FORMULA_NAME}.rb"
+
+  # Use awk to convert hyphenated name to CamelCase.
+  local class_name=$(echo "${FORMULA_NAME}" | awk -F'-' '{
+    for (i=1; i<=NF; i++) {
+        printf "%s", toupper(substr($i,1,1)) substr($i,2)
+    }
+    print ""
+  }')
+
+  echo "Creating or updating formula file at 'Formula/${FORMULA_FILE}'..."
+
+  cat <<EOF > "${formula_file}"
 # This file was generated by the publish.sh script.
-class ${CLASS_NAME} < Formula
-  desc "A brief description of the ${FORMULA_NAME} script"
+class ${class_name} < Formula
+  desc "${DESCRIPTION}"
   homepage "https://github.com/${GITHUB_USER}/${SCRIPTS_REPO}"
   url "${TARBALL_URL}"
   sha256 "${SHA256_CHECKSUM}"
 
-  # IMPORTANT: If this script has a dependency, you must add it here manually.
-  # For example: depends_on "install-dependency"
+$(echo "${DEPENDENCIES}")
 
   def install
     # This line installs the script into Homebrew's binary directory.
@@ -94,5 +159,16 @@ class ${CLASS_NAME} < Formula
 end
 EOF
 
-echo "Formula file 'Formula/${FORMULA_FILE}' has been updated successfully."
-echo "Remember to commit and push the changes to your homebrew-scripts repository."
+  echo "Formula file 'Formula/${FORMULA_FILE}' has been updated successfully."
+  echo "Remember to commit and push the changes to your homebrew-scripts repository."
+}
+
+# --- Main Logic ---
+function main() {
+  parse_script_info "$1"
+  fetch_release_info
+  parse_readme
+  generate_formula
+}
+
+main "$@"
