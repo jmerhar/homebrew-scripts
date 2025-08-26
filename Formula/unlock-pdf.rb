@@ -5,8 +5,8 @@ class UnlockPdf < Formula
   url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.0.0"
   sha256 "75f54e67177bc5238550e6d8015c1e142ee4a6d233e3b57c43dbe3b6bf2934c4"
 
-  depends_on "**qpdf**:"
-  depends_on "**install-dependency.sh**:"
+  depends_on "qpdf"
+  depends_on "install-dependency"
 
   def install
     # This line installs the script into Homebrew's binary directory.

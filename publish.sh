@@ -97,33 +97,29 @@ function parse_readme() {
     exit 1
   fi
 
-  # Use awk to find and format dependencies.
+  # Use `awk` to find and format dependencies by extracting the text between the first and second backticks on each line.
+  # This version is compatible with the standard awk on macOS.
   DEPENDENCIES=$(awk '
-      BEGIN {flag=0; printed=0}
-      /#### Dependencies/ {flag=1; next}
-      /## / {flag=0}
-      flag && /^- / {
-          # Get the word after the hyphen, remove backticks.
-          dep_name = $2
-          gsub(/`/, "", dep_name)
-          # Remove '.sh' extension if present.
-          gsub(/\.sh$/, "", dep_name)
-
-          # Print the formatted dependency line.
-          printf "  depends_on \"%s\"\n", dep_name
-          printed = 1
-      }
-      END {
-          if (flag && !printed) {
-              exit 1
+      /^#### Dependencies/ { in_deps_section = 1; next }
+      in_deps_section && /^-/ {
+          if (match($0, /`[^`]+`/)) {
+              # Use substr and the built-in RSTART and RLENGTH variables
+              # to extract the content between the backticks.
+              dep_name = substr($0, RSTART + 1, RLENGTH - 2)
+              if (length(dep_name) > 0) {
+                  printf "  depends_on \"%s\"\n", dep_name;
+              }
           }
+      }
+      in_deps_section && !/^-/ {
+          # Stop processing when the list ends (e.g., with an empty line or a new section).
+          in_deps_section = 0;
       }
   ' "${README_PATH}")
 
   # Check if dependencies were parsed successfully.
-  if [ $? -ne 0 ]; then
-    echo "Error: Could not parse dependencies from README.md. Please ensure the format is correct."
-    exit 1
+  if [ -z "${DEPENDENCIES}" ]; then
+    echo "Warning: Could not find any dependencies. Please ensure the format is correct."
   fi
 }
 
