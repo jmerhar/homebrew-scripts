@@ -1,20 +1,23 @@
 #!/bin/bash
 
-# A script to create or update a Homebrew formula file and a Debian package.
-# It lives in the root of the 'homebrew-scripts' repository and
-# takes the relative path of the script to be published as its single argument.
-# It automatically parses the README.md file for the script's description and dependencies.
+# A generic script to create a Homebrew formula file and a Debian package.
+# It is designed to be run from a GitHub Actions workflow and relies on
+# environment variables for configuration.
+#
+# It takes the relative path of the script to be published as its single argument.
+#
+# Environment variables used:
+# - GITHUB_USER: Your GitHub username (e.g., "jmerhar")
+# - SCRIPTS_REPO: The name of the main scripts repository (e.g., "scripts")
+# - HOMEBREW_TAP_REPO: The name of the Homebrew tap repository (e.g., "homebrew-scripts")
+# - APT_REPO: The name of the APT repository (e.g., "apt-scripts")
+# - MAINTAINER_INFO: The maintainer's name and email for Debian packages.
+# - TARBALL_URL: The URL to the tarball of the new release.
+# - VERSION: The version string (e.g., "v1.0.1").
+# - SHA256_CHECKSUM: The checksum of the tarball.
+# - DEB_DIST_DIR: The directory where final .deb files will be placed.
 
-# --- Configuration ---
-# The parent directory containing both repositories.
-PARENT_DIR="$( cd "$(dirname "$0")/.." >/dev/null 2>&1 ; pwd -P )"
-# Your GitHub username and the name of your scripts repository.
-GITHUB_USER="jmerhar"
-SCRIPTS_REPO="scripts"
-# The name of your Homebrew tap repository.
-HOMEBREW_TAP_REPO="homebrew-scripts"
-# The maintainer's name and email for Debian packages.
-MAINTAINER_INFO="Jure Merhar <dev@merhar.si>"
+set -e # Exit immediately if a command exits with a non-zero status.
 
 # --- Script Functions ---
 
@@ -36,40 +39,7 @@ function parse_script_info() {
   FORMULA_NAME=${FORMULA_NAME%.*}
 
   # The path to the README file. Assumes the README is in the same directory as the script.
-  README_PATH="${PARENT_DIR}/${SCRIPTS_REPO}/$(dirname "${SCRIPT_PATH}")/README.md"
-}
-
-# Fetches the latest release info from the GitHub API.
-# Globals: TARBALL_URL, SHA256_CHECKSUM, VERSION
-function fetch_release_info() {
-  local api_url="https://api.github.com/repos/${GITHUB_USER}/${SCRIPTS_REPO}/releases/latest"
-  echo "Fetching latest release information from GitHub..."
-
-  local release_info=$(curl -s "${api_url}")
-  if [ $? -ne 0 ]; then
-    echo "Error: Failed to fetch release information. Check your internet connection."
-    exit 1
-  fi
-
-  # Use 'sed' to extract the tarball URL and version from the JSON response.
-  TARBALL_URL=$(echo "${release_info}" | sed -nE 's/.*"tarball_url": "([^"]+)".*/\1/p')
-  VERSION=$(echo "${release_info}" | sed -nE 's/.*"tag_name": "([^"]+)".*/\1/p')
-
-  if [ -z "${TARBALL_URL}" ] || [ -z "${VERSION}" ]; then
-    echo "Error: Could not find a release for the scripts repository."
-    echo "Please create a release on GitHub first."
-    exit 1
-  fi
-
-  echo "Found latest release: ${VERSION}"
-  echo "Downloading tarball to calculate SHA256 checksum..."
-
-  SHA256_CHECKSUM=$(curl -sSL "${TARBALL_URL}" | shasum -a 256 | awk '{print $1}')
-  if [ -z "${SHA256_CHECKSUM}" ]; then
-    echo "Error: Failed to calculate checksum. Check if the tarball URL is valid."
-    exit 1
-  fi
-  echo "Checksum calculated: ${SHA256_CHECKSUM}"
+  README_PATH="$(dirname "${SCRIPT_PATH}")/README.md"
 }
 
 # Parses the script's README for its description and dependencies.
@@ -127,7 +97,7 @@ function parse_readme() {
 
 # Generates the Homebrew formula file.
 function generate_homebrew_formula() {
-  local formula_file="${PARENT_DIR}/${HOMEBREW_TAP_REPO}/Formula/${FORMULA_NAME}.rb"
+  local formula_file="${PWD}/../${HOMEBREW_TAP_REPO}/Formula/${FORMULA_NAME}.rb"
 
   # Use awk to convert hyphenated name to CamelCase.
   local class_name=$(echo "${FORMULA_NAME}" | awk -F'-' '{
@@ -170,14 +140,17 @@ function generate_deb_package() {
     return 1
   fi
 
-  local package_dir="${PARENT_DIR}/${SCRIPTS_REPO}/${FORMULA_NAME}-${VERSION}"
+  local package_dir="${PWD}/${FORMULA_NAME}-${VERSION}"
   local control_dir="${package_dir}/DEBIAN"
   local bin_dir="${package_dir}/usr/local/bin"
-  local script_file="${PARENT_DIR}/${SCRIPTS_REPO}/${SCRIPT_PATH}"
+  local script_file="${PWD}/${SCRIPT_PATH}"
 
   # Remove the 'v' prefix from the version number to comply with Debian standards.
   local deb_version=${VERSION#v}
-  local deb_file="${PARENT_DIR}/${SCRIPTS_REPO}/${FORMULA_NAME}_${deb_version}_all.deb"
+  local deb_file="${DEB_DIST_DIR}/${FORMULA_NAME}_${deb_version}_all.deb"
+  
+  # Ensure the distribution directory exists
+  mkdir -p "${DEB_DIST_DIR}"
 
   # Clean up any previous build attempts.
   if [ -d "${package_dir}" ]; then
@@ -226,11 +199,10 @@ EOF
 # --- Main Logic ---
 function main() {
   parse_script_info "$1"
-  fetch_release_info
   parse_readme
   generate_homebrew_formula
   generate_deb_package
-  echo "Publication process complete. Remember to commit and push the changes."
 }
 
+# Call the main function with the script path passed as an argument.
 main "$@"
