@@ -2,11 +2,10 @@
 class UnlockPdf < Formula
   desc "A script to decrypt a password-protected PDF file."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.0.5"
-  sha256 "2c2bfda5291da6f5c64ef634b569f84bf6f7b9d19588aed484250e2723d54de5"
+  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.0.6"
+  sha256 "9095ce2d2c05c74b98099bccb1974782d7f4e17b6882015ae28a3a5dc77d52cf"
 
   depends_on "qpdf"
-  depends_on "install-dependency"
 
   def install
     # This line installs the script into Homebrew's binary directory.
