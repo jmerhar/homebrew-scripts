@@ -2,8 +2,8 @@
 class UnlockPdf < Formula
   desc "A script to decrypt a password-protected PDF file."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.0.1"
-  sha256 "2cd46bb41f3b25d2f4315d0908e4ae962a39cb656f4156a65e30593166eba58c"
+  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.0.5"
+  sha256 "2c2bfda5291da6f5c64ef634b569f84bf6f7b9d19588aed484250e2723d54de5"
 
   depends_on "qpdf"
   depends_on "install-dependency"
