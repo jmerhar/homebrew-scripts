@@ -2,11 +2,10 @@
 class PackageScript < Formula
   desc "A generic package-file generator designed to be run from a CI/CD workflow. It takes the path to a script as an argument, parses metadata from a corresponding `README.md` file (expected in the same directory), and generates the necessary package files (`.rb` for Homebrew and `.deb` for Debian)."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.2.3"
-  sha256 "09b0fe5e8565a63430e0badd9e8734f9a4eeb43183a988b2a92465ddeeb5512c"
+  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.3.0"
+  sha256 "0faf06c4ed0c2e2658e777be1160c2f94ae6aee31a7de698aed9c7fad3f71dc7"
 
-
-
+  depends_on "awk"\n  depends_on "dpkg-deb"\n
   def install
     bin.install "system/package-script.sh" => "package-script"
     
