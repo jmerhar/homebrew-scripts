@@ -2,11 +2,11 @@
 class InstallDependency < Formula
   desc "Handles the installation of a specified package on macOS (via Homebrew) or Debian-based Linux (via apt-get)."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.4.0"
-  sha256 "9a1cabc3c8be043bd562cfc0685ef97239b2d6079070a2069b28e5903f0583be"
+  url "https://github.com/jmerhar/scripts/archive/refs/tags/install-dependency-v1.5.0.tar.gz"
+  sha256 "ffb4d814ad104de5eed58be9c3f462b76444b014e7fd60f2974e43c188792c47"
   license "MIT"
   def install
-    bin.install "system/install-dependency.sh" => "install-dependency"
+    bin.install "./system/install-dependency.sh" => "install-dependency"
     
   end
 end
