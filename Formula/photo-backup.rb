@@ -3,11 +3,11 @@ class PhotoBackup < Formula
   desc "A robust script for backing up photo collections from multiple sources to a remote server using rsync."
   homepage "https://github.com/jmerhar/scripts"
   url "https://api.github.com/repos/jmerhar/scripts/tarball/photo-backup-v1.5.0"
-  sha256 "ff26a13335365ead428b10e66362ffe13072fd1fac5cbbad82175cf831608f97"
+  sha256 "ab266f90404b9e0c86f65694492f3d6279da3dd4a92756591d9fe9a8d6f2fece"
   license "MIT"
   depends_on "rsync"
   def install
-    bin.install "scripts/./photography/photo-backup.sh" => "photo-backup"
-    etc.install "/home/runner/work/scripts/scripts/scripts/conf/photo-backup.conf" => "photo-backup.conf"
+    bin.install "./photography/photo-backup.sh" => "photo-backup"
+    etc.install "./conf/photo-backup.conf" => "photo-backup.conf"
   end
 end
