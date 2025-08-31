@@ -2,9 +2,9 @@
 class PackageScript < Formula
   desc "A generic package-file generator for Homebrew and Debian."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.4.1"
-  sha256 "15c2811ff97b6cf5e918f7ef786b984e715e6a57ae6aa94b3c5ce32bf90fdb8a"
-  License: "MIT"
+  url "https://api.github.com/repos/jmerhar/scripts/tarball/v1.4.0"
+  sha256 "9a1cabc3c8be043bd562cfc0685ef97239b2d6079070a2069b28e5903f0583be"
+  license "MIT"
   depends_on "awk"
   def install
     bin.install "system/package-script.sh" => "package-script"
