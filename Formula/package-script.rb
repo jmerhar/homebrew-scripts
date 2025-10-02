@@ -2,8 +2,8 @@
 class PackageScript < Formula
   desc "A generic package-file generator for Homebrew and Debian."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/archive/refs/tags/package-script-v1.5.0.tar.gz"
-  sha256 "f4076076fa1a890224a867ce261d78fb02b09e1d777fe47f031511a272908c2e"
+  url "https://github.com/jmerhar/scripts/archive/refs/tags/package-script-v1.5.1.tar.gz"
+  sha256 "8f661a1042aa15d0122ff207278490a24cea7f75dd17dd83da2501839f10d856"
   license "MIT"
   depends_on "awk"
   def install
