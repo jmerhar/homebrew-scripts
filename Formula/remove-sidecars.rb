@@ -10,4 +10,8 @@ class RemoveSidecars < Formula
     bin.install "./photography/remove-sidecars.pl" => "remove-sidecars"
     
   end
+
+  test do
+    assert_predicate bin/"remove-sidecars", :executable?
+  end
 end

@@ -6,8 +6,13 @@ class LocalBackup < Formula
   sha256 "461e9f2d4293d03d197dac07806d688421db6182823a7e4bd2cf547199ea536f"
   license "MIT"
   depends_on "rsync"
+  depends_on "ionice"
   def install
     bin.install "./system/local-backup.sh" => "local-backup"
     etc.install "./conf/local-backup.conf" => "local-backup.conf"
+  end
+
+  test do
+    assert_predicate bin/"local-backup", :executable?
   end
 end

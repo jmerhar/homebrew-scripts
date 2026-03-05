@@ -10,4 +10,8 @@ class UnlockPdf < Formula
     bin.install "./utility/unlock-pdf.sh" => "unlock-pdf"
     
   end
+
+  test do
+    assert_predicate bin/"unlock-pdf", :executable?
+  end
 end

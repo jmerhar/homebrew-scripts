@@ -10,4 +10,8 @@ class PhotoBackup < Formula
     bin.install "./photography/photo-backup.sh" => "photo-backup"
     etc.install "./conf/photo-backup.conf" => "photo-backup.conf"
   end
+
+  test do
+    assert_predicate bin/"photo-backup", :executable?
+  end
 end
