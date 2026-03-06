@@ -3,7 +3,8 @@ class UnlockPdf < Formula
   desc "Decrypts a password-protected PDF file using the 'qpdf' command-line tool."
   homepage "https://github.com/jmerhar/scripts"
   url "https://github.com/jmerhar/scripts/releases/download/unlock-pdf-v2.0.1/scripts-unlock-pdf-v2.0.1.tar.gz"
-  sha256 "24c2a2dc9f8086421a4aad40dbce84d87f769a10c0fc0867b5bdbd6e322a5a6d"
+  sha256 "fb13c6c73a3f78e737c6c9803d48df84055269f87a012dbdb82958f9f2d6445b"
+  version "2.0.1"
   license "MIT"
   depends_on "qpdf"
   def install
