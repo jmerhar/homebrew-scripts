@@ -7,7 +7,7 @@ class UnlockPdf < Formula
   license "MIT"
   depends_on "qpdf"
   def install
-    bin.install "utility/unlock-pdf.sh" => "unlock-pdf"
+    bin.install "scripts/utility/unlock-pdf.sh" => "unlock-pdf"
   end
 
   test do

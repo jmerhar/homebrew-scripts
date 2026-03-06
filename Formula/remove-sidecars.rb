@@ -7,7 +7,7 @@ class RemoveSidecars < Formula
   license "MIT"
   depends_on "perl"
   def install
-    bin.install "photography/remove-sidecars.pl" => "remove-sidecars"
+    bin.install "scripts/photography/remove-sidecars.pl" => "remove-sidecars"
   end
 
   test do

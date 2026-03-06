@@ -7,8 +7,8 @@ class LocalBackup < Formula
   license "MIT"
   depends_on "rsync"
   def install
-    bin.install "system/local-backup.sh" => "local-backup"
-    etc.install "./conf/local-backup.conf" => "local-backup.conf"
+    bin.install "scripts/system/local-backup.sh" => "local-backup"
+    etc.install "./conf/system/local-backup.conf" => "local-backup.conf"
   end
 
   test do

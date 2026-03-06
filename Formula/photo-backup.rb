@@ -7,8 +7,8 @@ class PhotoBackup < Formula
   license "MIT"
   depends_on "rsync"
   def install
-    bin.install "photography/photo-backup.sh" => "photo-backup"
-    etc.install "./conf/photo-backup.conf" => "photo-backup.conf"
+    bin.install "scripts/photography/photo-backup.sh" => "photo-backup"
+    etc.install "./conf/photography/photo-backup.conf" => "photo-backup.conf"
   end
 
   test do
