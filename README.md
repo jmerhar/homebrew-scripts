@@ -4,10 +4,9 @@ This is the [Homebrew](https://brew.sh) tap for [jmerhar/scripts](https://github
 
 ## Available scripts
 
-<!-- BEGIN FORMULA TABLE -->
-%b
+<!-- BEGIN TABLE -->
 
-<!-- END FORMULA TABLE -->
+<!-- END TABLE -->
 
 ## Installation
 
