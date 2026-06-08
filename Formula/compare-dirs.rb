@@ -2,9 +2,9 @@
 class CompareDirs < Formula
   desc "Recursively compares two directories and reports differences in existence, size, timestamps, and checksums."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/compare-dirs-v1.0.0/scripts-compare-dirs-v1.0.0.tar.gz"
-  sha256 "dba862fead8eef9408690d84f4c649d5471f50b7d5b03e7654fa69365828f0a3"
-  version "1.0.0"
+  url "https://github.com/jmerhar/scripts/releases/download/compare-dirs-v1.1.0/scripts-compare-dirs-v1.1.0.tar.gz"
+  sha256 "73ce5f64a6d07aec5c57e3933200a89b6959914b9bf75bc9b1389ef682182a98"
+  version "1.1.0"
   license "MIT"
   def install
     bin.install "compare-dirs.sh" => "compare-dirs"
