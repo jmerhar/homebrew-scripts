@@ -8,6 +8,7 @@ This is the [Homebrew](https://brew.sh) tap for [jmerhar/scripts](https://github
 | Formula | Description |
 |---------|-------------|
 | `local-backup` | A generic script to create and automatically prune rsync-based system backups. |
+| `prune-orphaned-torrents` | Finds orphaned media files left by *arr hard-linking and interactively removes the corresponding torrents from Deluge. |
 | `photo-backup` | A robust script for backing up photo collections from multiple sources to a remote server using rsync. |
 | `remove-sidecars` | A script to find and delete "sidecar" files when a corresponding RAW photo file exists. |
 | `compare-dirs` | Recursively compares two directories and reports differences in existence, size, timestamps, and checksums. |
