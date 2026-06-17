@@ -13,6 +13,7 @@ This is the [Homebrew](https://brew.sh) tap for [jmerhar/scripts](https://github
 | `remove-sidecars` | A script to find and delete "sidecar" files when a corresponding RAW photo file exists. |
 | `compare-dirs` | Recursively compares two directories and reports differences in existence, size, timestamps, and checksums. |
 | `subtitle-report` | Reports on subtitle coverage for a media library, detecting embedded tracks and sidecar files and breaking down counts by language and source. |
+| `subtitle-sync` | Resynchronizes drifting subtitles to a video's speech using a Whisper transcript as reference and alass for segment-aware alignment (handles ad-break, global-offset, and speed drift). Requires the external tools 'alass' and 'whisper-ctranslate2' on PATH. |
 | `unlock-pdf` | Decrypts a password-protected PDF file using the 'qpdf' command-line tool. |
 
 <!-- END TABLE -->
