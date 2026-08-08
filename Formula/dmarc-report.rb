@@ -2,15 +2,17 @@
 class DmarcReport < Formula
   desc "Aggregates a folder of DMARC RUA reports (.xml.gz/.zip) into one overall report, tracking policy changes over time and flagging unenforced domains, unaligned senders, DNS/DKIM errors, and spoofing (grouped into subnets with per-range country lookup)."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/dmarc-report-v1.1.0/scripts-dmarc-report-v1.1.0.tar.gz"
-  sha256 "5c2085acb8ca32c8c1cb0988f78ae3c98a4890496fd79386b86db6b7e712a9e9"
-  version "1.1.0"
+  url "https://github.com/jmerhar/scripts/releases/download/dmarc-report-v1.1.1/scripts-dmarc-report-v1.1.1.tar.gz"
+  sha256 "d91c2e42a0d6fe9ab7d131c6f780a07a5281a9aeff45caba02b12c6922e495b1"
+  version "1.1.1"
   license "MIT"
+  depends_on "bash"
   depends_on "curl"
   depends_on "jq"
   depends_on "libxml2"
   def install
     bin.install "dmarc-report.sh" => "dmarc-report"
+    inreplace bin/"dmarc-report", %r{^#!/usr/bin/env bash$}, "#!#{Formula["bash"].opt_bin}/bash"
   end
 
   test do
