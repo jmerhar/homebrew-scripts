@@ -2,9 +2,9 @@
 class SubtitleSync < Formula
   desc "Resynchronizes drifting subtitles to a video's speech using a Whisper transcript as reference and alass for segment-aware alignment (handles ad-break, global-offset, and speed drift). Requires the external tools 'alass' and 'whisper-ctranslate2' on PATH."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/subtitle-sync-v1.1.2/scripts-subtitle-sync-v1.1.2.tar.gz"
-  sha256 "753d70c55b3845b520c06b7c36328cec2c204fff0dddc576bed7d7fe28d6e18b"
-  version "1.1.2"
+  url "https://github.com/jmerhar/scripts/releases/download/subtitle-sync-v1.1.3/scripts-subtitle-sync-v1.1.3.tar.gz"
+  sha256 "265b3d430f3aa082ccfdd636711b2741f74a68dfd56e202be1806dd9c39382dd"
+  version "1.1.3"
   license "MIT"
   depends_on "bash"
   depends_on "ffmpeg"
