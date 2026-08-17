@@ -8,7 +8,7 @@ This is the [Homebrew](https://brew.sh) tap for [jmerhar/scripts](https://github
 | Formula | Description |
 |---------|-------------|
 | `local-backup` | A generic script to create and automatically prune rsync-based system backups. |
-| `prune-orphaned-torrents` | Finds orphaned media files left by *arr hard-linking and interactively removes the corresponding torrents from Deluge. |
+| `prune-orphaned-torrents` | Finds orphaned media files left by \*arr hard-linking and interactively removes the corresponding torrents from Deluge. |
 | `nopasswd-sudo` | Toggles temporary passwordless sudo for a user, with an in-session auto-revoke timer and a boot-time safety net so it never stays enabled by accident. |
 | `mdcheck-progress` | Reports the progress of an MD RAID check (Debian's monthly mdcheck scrub), including while it is paused between nightly windows, with a schedule-aware estimate of when it will finish. |
 | `photo-backup` | A robust script for backing up photo collections from multiple sources to a remote server using rsync. |
