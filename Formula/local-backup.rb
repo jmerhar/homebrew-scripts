@@ -2,9 +2,9 @@
 class LocalBackup < Formula
   desc "A generic script to create and automatically prune rsync-based system backups."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/local-backup-v1.3.3/scripts-local-backup-v1.3.3.tar.gz"
-  sha256 "fc4b3732a94eda3741344d9893867d61cc09718445967075eb1132f44512466d"
-  version "1.3.3"
+  url "https://github.com/jmerhar/scripts/releases/download/local-backup-v1.4.0/scripts-local-backup-v1.4.0.tar.gz"
+  sha256 "88857e811712c10fa4179ad766083049eb6207c2cfde3b10e02847ef58f86c2b"
+  version "1.4.0"
   license "MIT"
   depends_on "bash"
   depends_on "rsync"
