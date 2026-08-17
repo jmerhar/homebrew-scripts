@@ -2,9 +2,9 @@
 class PhotoBackup < Formula
   desc "A robust script for backing up photo collections from multiple sources to a remote server using rsync."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/photo-backup-v2.1.3/scripts-photo-backup-v2.1.3.tar.gz"
-  sha256 "cad8ccb5955ce0b3615968a461b07ccbc36aa868cc3f3b76582950c318c4417f"
-  version "2.1.3"
+  url "https://github.com/jmerhar/scripts/releases/download/photo-backup-v2.2.0/scripts-photo-backup-v2.2.0.tar.gz"
+  sha256 "617a24a611c12445b7aa492f75a5db94cdc7586cd3ca0a29c4979a6d64d5b974"
+  version "2.2.0"
   license "MIT"
   depends_on "rsync"
   def install
