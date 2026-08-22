@@ -2,9 +2,9 @@
 class MemoryPressureAlert < Formula
   desc "Warns while a Mac is filling up — swap growing and memory use climbing — rather than once it has already stalled, and names the heaviest applications by resident plus compressed memory."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/memory-pressure-alert-v1.1.0/scripts-memory-pressure-alert-v1.1.0.tar.gz"
-  sha256 "cf2d9d0383260ea80bbf2805a5838b9a55122fc2c9da61f153c1334495f391f3"
-  version "1.1.0"
+  url "https://github.com/jmerhar/scripts/releases/download/memory-pressure-alert-v2.0.0/scripts-memory-pressure-alert-v2.0.0.tar.gz"
+  sha256 "1102409a810a92089a31c1ca75834d7f87d4a62dbf866b2a577f416d14634e74"
+  version "2.0.0"
   license "MIT"
   def install
     bin.install "memory-pressure-alert.sh" => "memory-pressure-alert"
