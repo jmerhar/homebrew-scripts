@@ -2,9 +2,9 @@
 class MamSession < Formula
   desc "Points a MyAnonamouse dynamic-seedbox session at the machine's current address when it changes, calling the tracker sparingly, keeping the session out of the process list, and turning each refusal into the tracker setting that has to change."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/mam-session-v1.0.1/scripts-mam-session-v1.0.1.tar.gz"
-  sha256 "ee52ffb9c9066c3abc032848421b941e4e153c1e0c444f3e2184d27175946f35"
-  version "1.0.1"
+  url "https://github.com/jmerhar/scripts/releases/download/mam-session-v1.0.2/scripts-mam-session-v1.0.2.tar.gz"
+  sha256 "8ca0ca67e4eb4f77814f5b4ce60e2e8d36e50b0512631c62263707c1252d4262"
+  version "1.0.2"
   license "MIT"
   depends_on "bash"
   depends_on "curl"
@@ -12,6 +12,7 @@ class MamSession < Formula
   def install
     bin.install "mam-session.sh" => "mam-session"
     etc.install "mam-session.conf" => "mam-session.conf"
+    (etc/"mam-session.conf").chmod 0600 if (etc/"mam-session.conf").exist?
     inreplace bin/"mam-session", %r{^#!/usr/bin/env bash$}, "#!#{Formula["bash"].opt_bin}/bash"
   end
 
