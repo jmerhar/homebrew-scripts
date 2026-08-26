@@ -2,9 +2,9 @@
 class TranscodeAudio < Formula
   desc "Re-encodes the audio of Matroska files to a codec the playback chain can decode (AC-3 by default, for a receiver that cannot take Dolby Digital Plus), in one ffmpeg pass that copies the video, subtitles and chapters and keeps every audio track with its language and flags."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/transcode-audio-v1.0.0/scripts-transcode-audio-v1.0.0.tar.gz"
-  sha256 "ac5e3a2b3d9cdbf08303e9bb43ac43f41677e13b7a8ea250dcae55aa741bfa2a"
-  version "1.0.0"
+  url "https://github.com/jmerhar/scripts/releases/download/transcode-audio-v1.0.1/scripts-transcode-audio-v1.0.1.tar.gz"
+  sha256 "c8deb69c2effe8dcc6b27d02b93225820d5e191b42c72c2f5c29662761670c60"
+  version "1.0.1"
   license "MIT"
   depends_on "bash"
   depends_on "ffmpeg"
