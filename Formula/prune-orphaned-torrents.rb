@@ -2,9 +2,9 @@
 class PruneOrphanedTorrents < Formula
   desc "Finds orphaned media files left by *arr hard-linking and interactively removes the corresponding torrents from Deluge."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/prune-orphaned-torrents-v1.2.2/scripts-prune-orphaned-torrents-v1.2.2.tar.gz"
-  sha256 "2d3490656f72d239951d5f552b0dd2062886445793d8429a974bcf78a2a015a9"
-  version "1.2.2"
+  url "https://github.com/jmerhar/scripts/releases/download/prune-orphaned-torrents-v1.2.3/scripts-prune-orphaned-torrents-v1.2.3.tar.gz"
+  sha256 "1736604f6c6e751e7642f299390e75680e61a8a08e173a50ebc0dff872ca6652"
+  version "1.2.3"
   license "MIT"
   depends_on "bash"
   depends_on "curl"
@@ -12,6 +12,7 @@ class PruneOrphanedTorrents < Formula
   def install
     bin.install "prune-orphaned-torrents.sh" => "prune-orphaned-torrents"
     etc.install "prune-orphaned-torrents.conf" => "prune-orphaned-torrents.conf"
+    (etc/"prune-orphaned-torrents.conf").chmod 0600 if (etc/"prune-orphaned-torrents.conf").exist?
     inreplace bin/"prune-orphaned-torrents", %r{^#!/usr/bin/env bash$}, "#!#{Formula["bash"].opt_bin}/bash"
   end
 
