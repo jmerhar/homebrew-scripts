@@ -2,9 +2,9 @@
 class ModernizeVideo < Formula
   desc "Converts video from old cameras (MJPEG, Indeo, MPEG-1, H.263 in AVI, MPG, 3GP or MOV) to H.264/AAC MP4, carrying the capture date across into the fields a photo service reads so the result lands in the right place in a timeline rather than at the moment it was uploaded. Decides what each file needs from the codecs it holds: already-modern files are reported and left alone, and streams that are already fine are rewrapped without re-encoding."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/modernize-video-v1.0.0/scripts-modernize-video-v1.0.0.tar.gz"
-  sha256 "46fbceed39f640d128f2f05a52c5963aae19fedc7c3042d91b939c5c50e869a2"
-  version "1.0.0"
+  url "https://github.com/jmerhar/scripts/releases/download/modernize-video-v2.0.0/scripts-modernize-video-v2.0.0.tar.gz"
+  sha256 "e7cae9378d1a7292e751d7cd427da5c1721cab088e186227fba20716d7d8b874"
+  version "2.0.0"
   license "MIT"
   depends_on "bash"
   depends_on "ffmpeg"
