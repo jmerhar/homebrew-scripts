@@ -2,9 +2,9 @@
 class LinkSeries < Formula
   desc "Links episodes from a download folder into a series' library folder, taking the show and season from the destination directory itself, so manually acquired releases join the library without a second copy of the file."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/link-series-v2.0.0/scripts-link-series-v2.0.0.tar.gz"
-  sha256 "8a9e2105e6d8f3449138321cd7dd5caf6208e5c5b3f493619b7fe6040ead48c2"
-  version "2.0.0"
+  url "https://github.com/jmerhar/scripts/releases/download/link-series-v2.1.0/scripts-link-series-v2.1.0.tar.gz"
+  sha256 "fc45c9e5dd5c4be7abff3624f226685f66582a3518e2004234c1a479c96cd0d9"
+  version "2.1.0"
   license "MIT"
   depends_on "bash"
   def install
