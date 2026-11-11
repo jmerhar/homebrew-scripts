@@ -2,9 +2,9 @@
 class DmarcReport < Formula
   desc "Aggregates a folder of DMARC RUA reports (.xml.gz/.zip) into one overall report, tracking policy changes over time and flagging unenforced domains, unaligned senders, DNS/DKIM errors, and spoofing (grouped into subnets with per-range country lookup, or totalled by country)."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/dmarc-report-v1.2.0/scripts-dmarc-report-v1.2.0.tar.gz"
-  sha256 "db58f311eee4fd0201eb5d75e6e6f03c1022b40fc5efc615f0295231993fcf28"
-  version "1.2.0"
+  url "https://github.com/jmerhar/scripts/releases/download/dmarc-report-v1.3.0/scripts-dmarc-report-v1.3.0.tar.gz"
+  sha256 "3ddb7c73ca95be614d59b482fc777d0e51971dc23a2a4e119b0f93e15b4508f6"
+  version "1.3.0"
   license "MIT"
   depends_on "bash"
   depends_on "curl"
