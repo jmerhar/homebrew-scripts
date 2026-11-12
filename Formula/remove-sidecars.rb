@@ -2,9 +2,9 @@
 class RemoveSidecars < Formula
   desc "A script to find and delete \"sidecar\" files when a corresponding RAW photo file exists."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/remove-sidecars-v2.1.0/scripts-remove-sidecars-v2.1.0.tar.gz"
-  sha256 "ecd63e2c214a20b46fe89f8d4ca2b5ad66390037f572dd498eebc702d399b03f"
-  version "2.1.0"
+  url "https://github.com/jmerhar/scripts/releases/download/remove-sidecars-v2.1.1/scripts-remove-sidecars-v2.1.1.tar.gz"
+  sha256 "f3c04e0c4dd721dfb609e153c14ba27f8ade7202720097c198ae219b7f8b4617"
+  version "2.1.1"
   license "MIT"
   depends_on "bash"
   def install
