@@ -2,9 +2,9 @@
 class PruneOrphanedTorrents < Formula
   desc "Finds orphaned media files left by *arr hard-linking and interactively removes the corresponding torrents from Deluge."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/prune-orphaned-torrents-v1.4.0/scripts-prune-orphaned-torrents-v1.4.0.tar.gz"
-  sha256 "85c6863ecb0d42bb5329bebad931d23aa982a2aa5f705438d1243cf9fd88533a"
-  version "1.4.0"
+  url "https://github.com/jmerhar/scripts/releases/download/prune-orphaned-torrents-v1.4.1/scripts-prune-orphaned-torrents-v1.4.1.tar.gz"
+  sha256 "9175e3e34ee2d7726977097c3859f651708e0775e882a522c5e77baa84d59d65"
+  version "1.4.1"
   license "MIT"
   depends_on "bash"
   depends_on "curl"
