@@ -2,9 +2,9 @@
 class NormalizeReleaseNames < Formula
   desc "Brings episode filenames to one spelling — dots for separators, lower case, and the season and episode as S01E02 — so that sidecar pairing, library linking and episode parsers all match the same names. Renames subtitles alongside their video and refuses a rename whose destination is taken."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/normalize-release-names-v2.1.0/scripts-normalize-release-names-v2.1.0.tar.gz"
-  sha256 "c5df0492694a79784fa8a5156fcf08c42ad4a34def55f51129a991934b98d89e"
-  version "2.1.0"
+  url "https://github.com/jmerhar/scripts/releases/download/normalize-release-names-v2.1.1/scripts-normalize-release-names-v2.1.1.tar.gz"
+  sha256 "6638ffe76ef86bce0791b8b0c6df493a4e73196dd52767e70c9aee1f6f413d7c"
+  version "2.1.1"
   license "MIT"
   depends_on "bash"
   def install
