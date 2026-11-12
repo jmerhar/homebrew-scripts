@@ -2,9 +2,9 @@
 class DbBackup < Formula
   desc "Backs up Postgres, MariaDB, MongoDB and SQLite databases with a daily, weekly and monthly rotation, dumping the server engines inside their Docker containers, and verifies and restores the backups."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/db-backup-v1.0.0/scripts-db-backup-v1.0.0.tar.gz"
-  sha256 "b221342bdf91d5c2f69581a0f306b19fa50c67839de5d5a4b0f4b4f0573cf105"
-  version "1.0.0"
+  url "https://github.com/jmerhar/scripts/releases/download/db-backup-v1.0.1/scripts-db-backup-v1.0.1.tar.gz"
+  sha256 "bfdec8a19fa7c6258d3d760251fd766b3a32c0dfdac07da8ab97048c2dfc9e97"
+  version "1.0.1"
   license "MIT"
   depends_on "bash"
   def install
