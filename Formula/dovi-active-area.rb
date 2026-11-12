@@ -2,9 +2,9 @@
 class DoviActiveArea < Formula
   desc "Reports the Dolby Vision L5 active area of Matroska files, and on request zeroes it by rewriting the RPU in place, so a display stops cropping or letterboxing a picture that already fills its frame. Requires the external tool 'dovi_tool', which Debian has no package for."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/dovi-active-area-v2.1.0/scripts-dovi-active-area-v2.1.0.tar.gz"
-  sha256 "ce2d754ca815443d1741dd6021294075040405fe7b5b0a73ee4bb7d29db9cf6b"
-  version "2.1.0"
+  url "https://github.com/jmerhar/scripts/releases/download/dovi-active-area-v2.1.1/scripts-dovi-active-area-v2.1.1.tar.gz"
+  sha256 "f54cfe76834bfc38c266c4ab0dde174d26adbf26e57ae92742bb7142ec742599"
+  version "2.1.1"
   license "MIT"
   depends_on "bash"
   depends_on "ffmpeg"
