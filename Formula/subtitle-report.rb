@@ -2,9 +2,9 @@
 class SubtitleReport < Formula
   desc "Reports on subtitle coverage for a media library, detecting embedded tracks and sidecar files and breaking down counts by language and source."
   homepage "https://github.com/jmerhar/scripts"
-  url "https://github.com/jmerhar/scripts/releases/download/subtitle-report-v1.2.0/scripts-subtitle-report-v1.2.0.tar.gz"
-  sha256 "86b4e6e0ee7a7c5fcc885ec0c67345c1a30225825498ddbb998acf91a3492656"
-  version "1.2.0"
+  url "https://github.com/jmerhar/scripts/releases/download/subtitle-report-v1.2.1/scripts-subtitle-report-v1.2.1.tar.gz"
+  sha256 "38bae9c3c4f999229c8121a9ba1164957c4fa3cab67680c69a91c60afe6891e7"
+  version "1.2.1"
   license "MIT"
   depends_on "bash"
   depends_on "ffmpeg"
